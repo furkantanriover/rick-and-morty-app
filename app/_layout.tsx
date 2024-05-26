@@ -9,6 +9,8 @@ import { StatusBar } from 'expo-status-bar';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import '../global.css';
 
+import Toast from 'react-native-toast-message';
+
 import { ThemeToggle } from '~/components/nativewindui/ThemeToggle';
 import { useColorScheme, useInitialAndroidBarSync } from '~/lib/useColorScheme';
 import { NAV_THEME } from '~/theme';
@@ -23,6 +25,7 @@ onlineManager.setEventListener((setOnline) => {
     setOnline(!!state.isConnected);
   });
 });
+
 export default function RootLayout() {
   useInitialAndroidBarSync();
   const { colorScheme, isDarkColorScheme } = useColorScheme();
@@ -47,6 +50,7 @@ export default function RootLayout() {
           </BottomSheetModalProvider>
         </GestureHandlerRootView>
       </QueryClientProvider>
+      <Toast ref={(ref) => Toast.setRef(ref)} position="bottom" />
     </>
   );
 }
