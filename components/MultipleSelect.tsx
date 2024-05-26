@@ -81,7 +81,7 @@ export const MultipleSelect: React.FC<{ onSelectedOptionsChange: (name: string[]
             className={`h-8 flex-1 ${colorScheme === 'dark' ? 'text-white' : 'text-black'}`}
             value={query}
             onChangeText={(text) => {
-              setQuery(text);
+              setQuery(text.toLowerCase());
               if (text.length >= 3) {
                 setShowOptions(true);
                 filteredCharactersRefetch();
