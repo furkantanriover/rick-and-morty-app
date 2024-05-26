@@ -19,7 +19,6 @@ cssInterop(FlashList, {
 
 export default function Screen() {
   const [selectedIds, setSelectedIds] = React.useState<string[]>([]);
-  console.log('🚀 ~ Screen ~ selectedIds:', selectedIds);
 
   const { data } = useQuery({
     queryKey: ['characters'],
@@ -30,8 +29,6 @@ export default function Screen() {
     if (!data || selectedIds.length === 0) return data?.results || [];
     return data.results.filter((item: CharacterItem) => selectedIds.includes(item.id));
   }, [data, selectedIds]);
-
-  console.log('🚀 ~ Screen ~ filteredData:', filteredData);
 
   return (
     <FlashList
@@ -55,7 +52,6 @@ function ListEmptyComponent() {
   const insets = useSafeAreaInsets();
   const dimensions = useWindowDimensions();
   const headerHeight = useHeaderHeight();
-  const { colors } = useColorScheme();
   const height = dimensions.height - headerHeight - insets.bottom - insets.top;
 
   return <View style={{ height }} className="flex-1 items-center justify-center gap-1 px-12" />;
