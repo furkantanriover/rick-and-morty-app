@@ -4,6 +4,7 @@ import { useQuery } from '@tanstack/react-query';
 import { cssInterop } from 'nativewind';
 import * as React from 'react';
 import { Image, View, useWindowDimensions } from 'react-native';
+import Animated, { useAnimatedStyle, useSharedValue, withSpring } from 'react-native-reanimated';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import { get } from './api/client';
@@ -88,11 +89,11 @@ function renderItemSeparator() {
 
 function renderItem({ item }: { item: CharacterItem }) {
   return (
-    <Card>
+    <AnimatedCard>
       <View className="flex-1 items-center justify-center">
-        <View className="flex w-full flex-row items-center  gap-4">
+        <View className="flex w-full flex-row items-center gap-4">
           <Image source={{ uri: item.image }} className="h-24 w-24 rounded-full" />
-          <View className="flex flex-shrink flex-col gap-2  ">
+          <View className="flex flex-shrink flex-col gap-2">
             <Text className="text-xl">
               {item.name} ({item.status})
             </Text>
@@ -101,16 +102,27 @@ function renderItem({ item }: { item: CharacterItem }) {
           </View>
         </View>
       </View>
-    </Card>
+    </AnimatedCard>
   );
 }
 
-function Card({ children }: { children: React.ReactNode }) {
+function AnimatedCard({ children }: { children: React.ReactNode }) {
   const { colorScheme } = useColorScheme();
+  const scale = useSharedValue(1);
+
+  const animatedStyle = useAnimatedStyle(() => {
+    return {
+      transform: [{ scale: withSpring(scale.value) }],
+    };
+  });
+
   return (
-    <View
-      className={` ${colorScheme === 'dark' ? 'bg-slate-700' : 'bg-slate-300'} h-auto min-h-44 rounded-lg p-4`}>
+    <Animated.View
+      onTouchStart={() => (scale.value = 1.05)}
+      onTouchEnd={() => (scale.value = 1)}
+      style={animatedStyle}
+      className={`${colorScheme === 'dark' ? 'bg-slate-700' : 'bg-slate-300'} h-auto min-h-44 rounded-lg p-4`}>
       {children}
-    </View>
+    </Animated.View>
   );
 }
