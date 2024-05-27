@@ -39,7 +39,6 @@ export const MultipleSelect: React.FC<{ onSelectedOptionsChange: (name: string[]
 
   const toggleSelectOption = (option: Option) => {
     let newSelectedOptions;
-    console.log('toggleSelectOption', option);
     if (selectedOptions.some((selected) => selected.id === option.id)) {
       newSelectedOptions = selectedOptions.filter((selected) => selected.id !== option.id);
     } else {
@@ -50,7 +49,6 @@ export const MultipleSelect: React.FC<{ onSelectedOptionsChange: (name: string[]
   };
 
   const removeSelectedOption = (option: Option) => {
-    console.log('removeSelectedOption', option);
     const newSelectedOptions = selectedOptions.filter((selected) => selected.id !== option.id);
     setSelectedOptions(newSelectedOptions);
     onSelectedOptionsChange(newSelectedOptions.map((opt) => opt.id));
