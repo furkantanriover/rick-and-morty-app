@@ -40,13 +40,9 @@ To set up the project locally, follow these steps:
    npm install
 ```
 
-# or
-
 ```bash
 yarn install
 ```
-
-# or
 
 ```bash
 bun install
@@ -60,8 +56,6 @@ bun install
 bunx expo run:android
 ```
 
-# or
-
 ```bash
 bunx expo start
 ```
@@ -72,8 +66,6 @@ bunx expo start
 bunx expo run:ios
 ```
 
-# or
-
 ```bash
 bunx expo start
 ```
@@ -83,8 +75,6 @@ bunx expo start
 ```bash
 bunx expo run:web
 ```
-
-# or
 
 ```bash
 bunx expo start
