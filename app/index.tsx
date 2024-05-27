@@ -29,7 +29,7 @@ export default function Screen() {
 
   const filteredData = React.useMemo(() => {
     if (!data || selectedIds.length === 0) return data?.results || [];
-    return data.results.filter((item: CharacterItem) => selectedIds.includes(item.id.toString()));
+    return data.results.filter((item: CharacterItem) => (selectedIds as any).includes(item.id));
   }, [data, selectedIds]);
 
   if (isLoading) {
