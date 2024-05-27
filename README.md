@@ -22,6 +22,7 @@ The Rick and Morty character explorer is designed to showcase how to fetch and d
 - **Reanimated Animations**: Smooth animations using `react-native-reanimated`.
 - **Content Loader**: Placeholder skeleton screens using `react-content-loader`.
 - **Toast Notifications**: Informing users of API request statuses using `react-native-toast-message`.
+- **Zustand**:A small, fast, and scalable bearbones state management solution. Zustand has a comfy API based on hooks. It isn't boilerplatey or opinionated, but has enough convention to be explicit and flux-like
 
 ## Installation
 
