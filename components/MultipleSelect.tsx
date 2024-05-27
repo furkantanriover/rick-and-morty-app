@@ -6,6 +6,7 @@ import { Image, ScrollView, Text, TextInput, TouchableOpacity, View } from 'reac
 import { get } from '~/app/api/client';
 import { useColorScheme } from '~/lib/useColorScheme';
 import { truncateText } from '~/lib/utils';
+import { useSearchStore } from '~/store/SearchStore';
 
 type Option = {
   id: string;
@@ -27,9 +28,9 @@ const fetchOptions = async (query: string): Promise<Option[]> => {
 export const MultipleSelect: React.FC<{ onSelectedOptionsChange: (name: string[]) => void }> = ({
   onSelectedOptionsChange,
 }) => {
-  const [query, setQuery] = useState<string>('');
   const [selectedOptions, setSelectedOptions] = useState<Option[]>([]);
   const [showOptions, setShowOptions] = useState<boolean>(false);
+  const { setQuery, query } = useSearchStore();
 
   const { refetch: filteredCharactersRefetch, data: filteredCharactersData } = useQuery({
     queryKey: ['filteredCharacters', query],

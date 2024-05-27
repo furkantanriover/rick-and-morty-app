@@ -2,7 +2,7 @@ import { useHeaderHeight } from '@react-navigation/elements';
 import { FlashList } from '@shopify/flash-list';
 import { useQuery } from '@tanstack/react-query';
 import { cssInterop } from 'nativewind';
-import * as React from 'react';
+import React from 'react';
 import { Image, View, useWindowDimensions } from 'react-native';
 import Animated, { useAnimatedStyle, useSharedValue, withSpring } from 'react-native-reanimated';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
@@ -13,6 +13,7 @@ import { MultipleSelect } from '~/components/MultipleSelect';
 import Skeleton from '~/components/Skeleton';
 import { Text } from '~/components/nativewindui/Text';
 import { useColorScheme } from '~/lib/useColorScheme';
+import { useSearchStore } from '~/store/SearchStore';
 
 cssInterop(FlashList, {
   className: 'style',
@@ -21,6 +22,8 @@ cssInterop(FlashList, {
 
 export default function Screen() {
   const [selectedIds, setSelectedIds] = React.useState<string[]>([]);
+  const { query } = useSearchStore();
+  console.log(query);
 
   const { data, isLoading, error } = useQuery({
     queryKey: ['characters'],
@@ -59,7 +62,7 @@ export default function Screen() {
       removeClippedSubviews={false}
       keyExtractor={keyExtractor}
       ItemSeparatorComponent={renderItemSeparator}
-      renderItem={renderItem}
+      renderItem={(props) => renderItem(props, query)}
       ListEmptyComponent={filteredData.length === 0 ? ListEmptyComponent : undefined}
     />
   );
@@ -103,7 +106,7 @@ function renderItemSeparator() {
   return <View className="p-2" />;
 }
 
-function renderItem({ item }: { item: CharacterItem }) {
+function renderItem({ item }: { item: CharacterItem }, query: string) {
   return (
     <AnimatedCard>
       <View className="flex-1 items-center justify-center">
@@ -111,7 +114,7 @@ function renderItem({ item }: { item: CharacterItem }) {
           <Image source={{ uri: item.image }} className="h-24 w-24 rounded-full" />
           <View className="flex flex-shrink flex-col gap-2">
             <Text className="text-xl">
-              {item.name} ({item.status})
+              {highlightedName(item.name, query)} ({item.status})
             </Text>
             <Text className="text-lg">{item.episode.length} Episodes</Text>
             <Text className="text-lg">{item.origin.name}</Text>
@@ -119,6 +122,21 @@ function renderItem({ item }: { item: CharacterItem }) {
         </View>
       </View>
     </AnimatedCard>
+  );
+}
+
+function highlightedName(name: string, query: string) {
+  if (!query) return name;
+
+  const parts = name.split(new RegExp(`(${query})`, 'gi'));
+  return parts.map((part, index) =>
+    part.toLowerCase() === query.toLowerCase() ? (
+      <Text key={index} className="text-[22px] font-bold">
+        {part}
+      </Text>
+    ) : (
+      part
+    )
   );
 }
 
