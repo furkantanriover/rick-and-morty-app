@@ -54,29 +54,29 @@ bun install
 ## Android
 
 ```bash
-bunx expo run:android
+bunx & npx expo run:android
 ```
 
 ```bash
-bunx expo start
+bunx & npx expo start
 ```
 
 ## iOS
 
 ```bash
-bunx expo run:ios
+bunx & npx expo run:ios
 ```
 
 ```bash
-bunx expo start
+bunx & npx expo start
 ```
 
 ## Web
 
 ```bash
-bunx expo run:web
+bunx & npx expo run:web
 ```
 
 ```bash
-bunx expo start
+bunx & npx expo start
 ```
