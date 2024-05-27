@@ -1,6 +1,6 @@
-# Case Study Seven Apps
+# Rick and Morty APP
 
-This project is a comprehensive case study for seven different mobile applications built using React Native and Expo. One of the applications included in this case study is a Rick and Morty character explorer. This application fetches data from the Rick and Morty API, displays a list of characters, and allows users to filter characters based on their selection using a MultipleSelect component.
+This application takes data from the Rick and Morty API, displays a list of characters, and allows users to filter characters based on their selections using a MultipleSelect component.
 
 ## Description
 
