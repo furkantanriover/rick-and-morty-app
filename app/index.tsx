@@ -12,6 +12,7 @@ import { get } from './api/client';
 import { MultipleSelect } from '~/components/MultipleSelect';
 import { Text } from '~/components/nativewindui/Text';
 import { useColorScheme } from '~/lib/useColorScheme';
+import Skeleton from '~/components/Skeleton';
 
 cssInterop(FlashList, {
   className: 'style',
@@ -21,15 +22,30 @@ cssInterop(FlashList, {
 export default function Screen() {
   const [selectedIds, setSelectedIds] = React.useState<string[]>([]);
 
-  const { data } = useQuery({
+  const { data, isLoading, error } = useQuery({
     queryKey: ['characters'],
     queryFn: async () => await get('/character'),
   });
 
   const filteredData = React.useMemo(() => {
     if (!data || selectedIds.length === 0) return data?.results || [];
-    return data.results.filter((item: CharacterItem) => selectedIds.includes(item.id));
+    return data.results.filter((item: CharacterItem) => selectedIds.includes(item.id.toString()));
   }, [data, selectedIds]);
+
+  if (isLoading) {
+    return (
+      <View className="mt-32 flex-1 items-center justify-center">
+        <Skeleton />
+        <Skeleton />
+        <Skeleton />
+        <Skeleton />
+      </View>
+    );
+  }
+
+  if (error) {
+    return <Text>Error: {error.message}</Text>;
+  }
 
   return (
     <FlashList
