@@ -10,9 +10,9 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { get } from './api/client';
 
 import { MultipleSelect } from '~/components/MultipleSelect';
+import Skeleton from '~/components/Skeleton';
 import { Text } from '~/components/nativewindui/Text';
 import { useColorScheme } from '~/lib/useColorScheme';
-import Skeleton from '~/components/Skeleton';
 
 cssInterop(FlashList, {
   className: 'style',
